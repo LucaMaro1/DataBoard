@@ -202,7 +202,7 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
         for(int i = 0 ; i < data.size() ; i++){
             if(dato.equals(data.get(i))){
                 E retData = (E) data.get(i).clone(); //creo una copia
-                System.out.println("Data " + dato.getTitle() + " correctly got.");
+                System.out.println("Data " + dato.getTitle() + " correctly got.\n");
                 return retData;
             }
         }
@@ -233,7 +233,8 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
                 dataCategories.remove(i);
                 hasFriendPutLike.remove(i);
                 System.out.println("Data " + dato.getTitle() + " correctly removed.");
-                List<Data> printList = new ArrayList<Data>(data); //per l'output
+                //per l'output
+                List<Data> printList = new ArrayList<Data>(data);
                 printDataList(printList);
                 return retVal;
             }
@@ -267,7 +268,7 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
                     retList.add((E) data.get(i).clone());
                 }
             }
-            System.out.println("All data from category " + category + " correctly got.");
+            System.out.println("All data from category " + category + " correctly got.\n");
             return retList;
         }
         //categoria inesistente
@@ -340,17 +341,25 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
         passwordCheck(passw); //solleva WrongPassException
 
         List<E> retData = new ArrayList<E>();
+        List<Integer> likes = new ArrayList<Integer>();
         for(int i = 0 ; i < data.size() ; i++){
             retData.add(data.get(i));
+            likes.add(hasFriendPutLike.get(i).size());
         }
 
         //ordino i dati (IMPLEMENTARE CON MERGESORT!!!)
         for(int i = 0 ; i < retData.size(); i++){
             for(int j = 0 ; j < retData.size() - 1 ; j++){
-                if(hasFriendPutLike.get(j).size() > hasFriendPutLike.get(j + 1).size()){
+                //ordina in modo decrescente
+                if(likes.get(j) < likes.get(j + 1)){
                     E temp = retData.get(j);
+                    Integer tempN = likes.get(j);
+
                     retData.set(j, retData.get(j + 1));
+                    likes.set(j, likes.get(j + 1));
+
                     retData.set(j + 1, temp);
+                    likes.set(j + 1, tempN);
                 }
             }
         }
@@ -392,7 +401,7 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
 
     private static void passwordCheck(String p) throws WrongPassException{
         if(!p.equals(password))
-            throw new WrongPassException("Wrong Password.\n");
+            throw new WrongPassException("Wrong Password.");
     }
 
     private static void printFriendList(List<String> list){

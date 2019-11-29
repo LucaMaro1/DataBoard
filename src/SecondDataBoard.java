@@ -143,16 +143,18 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         }
         passwordCheck(passw); //solleva WrongPassException
 
-        if(dataForCategories.containsKey(category)){
-            for(int i = 0 ; i < dataForCategories.get(category).size() ; i++){
-                if(dato.equals(dataForCategories.get(category).get(i))){
+        //controllo che non siano stati inseriti dati uguali a dato
+        for(int i = 0 ; i < dataForCategories.size() ; i++){
+            for(int j = 0 ; j < dataForCategories.get(categories.get(i)).size() ; j++){
+                if(dato.equals(dataForCategories.get(categories.get(i)).get(j))){
                     //dato già esistente, esito negativo
                     System.out.println("Unsuccessful operation, data " + dato.getTitle() + " already existent.\n");
                     return false;
                 }
             }
         }
-        else{
+
+        if(!dataForCategories.containsKey(category)){
             //aggiungo la categoria e lo notifico all'utente
             System.out.println("Nonexistent category: " + category + ", let's add it.\n");
             createCategory(category, passw);
@@ -189,7 +191,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
             for(int j = 0 ; j < dataForCategories.get(categories.get(i)).size() ; j++){
                 if(dato.equals(dataForCategories.get(categories.get(i)).get(j))){
                     E retVal = (E) dataForCategories.get(categories.get(i)).get(j).clone(); //creo una copia
-                    System.out.println("Data " + dato.getTitle() + " correctly got.");
+                    System.out.println("Data " + dato.getTitle() + " correctly got.\n");
                     return retVal;
                 }
             }
@@ -220,7 +222,8 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
                     dataForCategories.get(categories.get(i)).remove(j);
                     friendLikedData.get(categories.get(i)).remove(dato);
                     numOfData--;
-                    System.out.println("Data #" + dato.getId() + " correctly removed.");
+                    System.out.println("Data " + dato.getId() + " correctly removed.");
+                    //per l'output
                     List<Data> dataList = new ArrayList<Data>();
                     for(int k = 0 ; k < dataForCategories.size() ; k++){
                         dataList.addAll(dataForCategories.get(categories.get(k)));
@@ -251,7 +254,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
                 //inserisco delle copie per evitare che i dato possano essere modificati
                 retList.add((E) dataForCategories.get(category).get(i).clone());
             }
-            System.out.println("All data from category " + category + " correctly got.");
+            System.out.println("All data from category " + category + " correctly got.\n");
             return retList;
         }
         //categoria inesistente
@@ -274,10 +277,11 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
         for(int i = 0 ; i < friendLikedData.size() ; i++){
             if(friendLikedData.get(categories.get(i)).containsKey(data)){
-                for(int j = 0 ; j < friendLikedData.get(categories.get(i)).size() ; j++){
+                //eseguo questo controllo sui like solo se è stato messo almeno un like
+                for(int j = 0 ; j < friendLikedData.get(categories.get(i)).get(data).size() ; j++){
                     if(friend.equals(friendLikedData.get(categories.get(i)).get(data).get(j))){
                         //se l'amico ha già messo like non faccio nulla
-                        System.out.println("Friend " + friend + " already set like to data " + data.getTitle() + ".");
+                        System.out.println("Friend " + friend + " already set like to data " + data.getTitle() + ".\n");
                         return;
                     }
                 }
@@ -317,7 +321,8 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         //ordino i dati (IMPLEMENTARE CON MERGESORT!!!)
         for(int i = 0 ; i < retData.size(); i++){
             for(int j = 0 ; j < retData.size() - 1 ; j++){
-                if(numOfLikesPerData.get(j) > numOfLikesPerData.get(j + 1)){
+                //ordina in modo decrescente
+                if(numOfLikesPerData.get(j) < numOfLikesPerData.get(j + 1)){
                     E tempData = retData.get(j);
                     Integer tempNum = numOfLikesPerData.get(j);
 
@@ -330,7 +335,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
             }
         }
         Iterator<E> it = new MyIterator(retData);
-        System.out.println("Iterator on data correctly got.");
+        System.out.println("Iterator on data correctly got.\n");
         return it;
     }
 
@@ -362,7 +367,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         }
 
         Iterator<E> it = new MyIterator(retList);
-        System.out.println("Iterator on friends correctly got.");
+        System.out.println("Iterator on friends correctly got.\n");
         return it;
     }
 

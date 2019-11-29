@@ -13,9 +13,9 @@ public class MyData implements Data {
     }
 
     public void display(){
-        System.out.println("Id dato: " + this.id);
-        System.out.println("titolo: " + this.title);
-        System.out.println("autore: " + this.author + "\n");
+        System.out.println("Id: " + this.id);
+        System.out.println("Title: " + this.title);
+        System.out.println("Author: " + this.author + "\n");
     }
 
     public int getId(){
@@ -32,7 +32,7 @@ public class MyData implements Data {
 
     @Override
     public String toString() {
-        return "Id dato: " + this.id + "\ntitolo: " + this.title + "\nautore: " + this.author + "\n";
+        return "Id: " + this.id + "\nTitle: " + this.title + "\nAuthor: " + this.author + "\n";
     }
 
     public Data clone(){
