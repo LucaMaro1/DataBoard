@@ -2,9 +2,15 @@ import java.util.*;
 
 public interface DataBoard<E extends Data> {
 
-    //Overview:
+    /*
+        Overview: Tipo modificabile che rappresenta una bacheca di dati ai quali vengono associate categorie, alle quali possono
+                  essere associati degli amici. Gli amici possono mettere un like ai dati che hanno associate le categorie
+                  alle quali hanno accesso.
 
-    //Typical element: <password, {data_i}, {category_i}> //trova come ficcacce l'amici
+        Typical element: <password, {data_i}, {category_i}>
+
+
+     */
 
     public void createCategory(String category, String passw) throws WrongPassException;
     /*
