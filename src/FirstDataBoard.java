@@ -9,7 +9,29 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
                   {c.friendsForCategories.get(i).get(j) | 0 <= i < c.friendsForCategories.size() & 0 <= j < c.friendsForCategories.get(i).size()},
                   {c.hasFriendPutLike.get(i).get(j) | 0 <= i < c.hasFriendPutLike.size() & 0 <= j < c.hasFriendPutLike.get(i).size()} >
 
-        IR(c) =
+        IR(c) = - c.password != null & c.data != null & c.dataCategories != null & c.categories != null & c.friendsForCategories != null & c.hasFriendPutLike != null;
+
+                - c.data.size() = c.dataCategories.size() = c.hasFriendPutLike.size() & c.categories.size() = c.friendsForCategories.size();
+
+                - for all i. 0 <= i < c.data.size() ==> (c.data.get(i) != null & c.dataCategories.get(i) != null);
+
+                - for all i. 0 <= i < c.categories.size() ==> (c.categories.get(i) != null & c.friendForCategories.get(i) != null);
+
+                - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> (c.hasFriendPutLike.get(i).get(j) != null);
+
+                - for all i. 0 <= i < c.data.size() & for all j. i < j < c.data.size() ==> (c.data.get(i).equals(c.data.get(j)) == false);
+
+                - for all i. 0 <= i < c.categories.size() & for all j. i < j < c.categories.size() ==> (c.categories.get(i).equals(c.categories.get(j)) == false);
+
+                - for all i. 0 <= i < c.friendsForCategories.size() & for all j. 0 <= j < c.friendsForCategories.get(i).size() & for all k. j <= k < c.friendsForCategories.get(i).size() ==>
+                  ==> (c.friendsForCategories.get(i).get(j).equals(c.friendsForCategories.get(i).get(k)) == false);
+
+                - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() & for all k. j <= k < c.hasFriendPutLike.get(i).size() ==>
+                  ==> (c.hasFriendPutLike.get(i).get(j).equals(c.hasFriendPutLike.get(i).get(k)) == false);
+
+                - for all i. 0 <= i < c.dataCategories.size() ==> c.dataCategories.get(i) ∈ c.categories;
+
+                - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> c.hasFriendPutLike.get(i).get(j) ∈ c.friendsForCategories.
      */
 
     //variabili di istanza
