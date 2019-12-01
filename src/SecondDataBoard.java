@@ -3,13 +3,39 @@ import java.util.*;
 //      SECONDA IMPLEMENTAZIONE
 
 public class SecondDataBoard<E extends Data> implements DataBoard<E> {
-    private static String password;
+
+    /*
+        AF(c) = < c.password, c.numOfData, {c.categories.get(i) | 0 <= i < c.categories.size()}, {<c.categories.get(i), {c.friendsForCategories.get(c.categories.get(i)).get(j) | 0 <= j < c.friendForCategories.get(i).size()}> | 0 <= i < c.friendsForCategories.size()},
+                  {<c.categories.get(i), {c.dataForCategories.get(c.categories.get(i)).get(j) | 0 <= j < c.dataForCategories.get(c.categories.get(i)).size()}> | 0 <= i < c.dataForCategories.size()},
+                  {<c.categories.get(i), {<c.dataForCategories.get(c.categories.get(i)).get(j), {c.friendLikedData.get(c.categories.get(i)).get(c.dataForCategories.get(c.categories.get(i)).get(j)).get(k) |
+                  | 0 <= k < c.friendLikedData.get(c.categories.get(i)).get(c.dataForCategories.get(c.categories.get(i)).size()}> | 0 <= j < c.dataForCategories.get(c.categories.get(i)).size()} | 0 <= i < c.categories.size()}
+
+        IR(c) = - c.password != null & c.categories != null & c.friendForCategories != null & c.dataForCategories != null & c.friendLikedData != null;
+
+                - c.categories.size() = c.friendsForCategories.size() = c.dataForCategories.size() = c.friendLikedData.size();
+
+                - for all i. 0 <= i < c.categories.size() ==> (c.categories.get(i) != null & c.friendsForCategories.get(c.categories.get(c.categories.get(i))) != null & c.dataForCategories.get(c.categories.get(i)) != null & c.friendLikedData.get(c.categories.get(i)));
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() ==> c.friendsForCategories.get(c.categories.get(i)).get(j) != null;
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.dataForCategories.get(c.categories.get(i)).size() ==> c.dataForCategories.get(c.categories.get(i)).get(j) != null;
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsLikedData.get(c.categories.get(i)).size() ==> c.friendsLikedData.get(c.categories.get(i)).get(j) != null;
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsLikedData.get(c.categories.get(i)).size() & for all k. 0 <= k < c.friendsLikedData.get(categories.get(i)).get(dataForCategories.get(c.categories.get(i)) ==>
+                  ==> c.friendsLikedData.get(c.category.get(i)).get(c.dataForCategories.get(categories.get(i).get(j)).get(k) != null;
+
+                -
+
+     */
+
     //variabili di istanza
+    private String password;
+    int numOfData;
     private List<String> categories;
     private HashMap<String, ArrayList<String>> friendsForCategories;
     private HashMap<String, ArrayList<E>> dataForCategories;
     private HashMap<String, HashMap<E, ArrayList<String>>> friendLikedData;
-    int numOfData;
 
     public SecondDataBoard(String pass){
         password = pass;
@@ -26,7 +52,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(category == null || passw == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
 
         if(friendsForCategories.containsKey(category)){
             //si sta tendando di aggiungere una categoria già esistente
@@ -47,7 +73,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(category == null || passw == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(categories.size() == 0)
             throw new EmptyListException("Impossible to remove category " + category + " because there are no categories.");
 
@@ -76,7 +102,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(category == null || passw == null || friend == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(categories.size() == 0)
             throw new EmptyListException("Impossible to add friend " + friend + " because there are no categories.");
 
@@ -103,7 +129,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(category == null || passw == null || friend == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(categories.size() == 0)
             throw new EmptyListException("Impossible to remove friend " + friend + " because there are no categories.");
 
@@ -141,7 +167,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(passw == null || category == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
 
         //controllo che non siano stati inseriti dati uguali a dato
         for(int i = 0 ; i < dataForCategories.size() ; i++){
@@ -183,7 +209,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(passw == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(numOfData == 0)
             throw new EmptyListException("Impossible to get the selected data because there are no data.");
 
@@ -211,7 +237,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(passw == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(numOfData == 0)
             throw new EmptyListException("Impossible to get the selected data because there are no data.");
 
@@ -244,7 +270,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(passw == null || category == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
         if(categories.size() == 0)
             throw new EmptyListException("Impossible to get data from category " + category + " because there are no categories.");
 
@@ -307,7 +333,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(passw == null){
             throw new NullPointerException();
         }
-        passwordCheck(passw); //solleva WrongPassException
+        passwordCheck(passw, this.password); //solleva WrongPassException
 
         List<E> retData = new ArrayList<E>();
         List<Integer> numOfLikesPerData = new ArrayList<Integer>();
@@ -372,8 +398,8 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
     }
 
 
-    private static void passwordCheck(String p) throws WrongPassException{
-        if(!p.equals(password))
+    private static void passwordCheck(String p, String truePass) throws WrongPassException{
+        if(!p.equals(truePass))
             throw new WrongPassException("Wrong Password.");
     }
 

@@ -7,7 +7,7 @@ public interface DataBoard<E extends Data> {
                   essere associati degli amici. Gli amici possono mettere un like ai dati che hanno associate le categorie
                   alle quali hanno accesso.
 
-        Typical element: <password, {data_i}, {category_i}>
+        Typical element: <password, {data_i}, {category_i}>  --> da finire
 
 
      */

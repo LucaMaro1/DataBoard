@@ -4,7 +4,7 @@ public class MyData implements Data {
         AF(c) = <c.id, c.title, c.author>
 
         IR(c) = -c.id != null & c.title != null & c.author != null
-                -c.id > 0;
+                -c.id >= 0;
      */
 
     private static int createdData = 0;

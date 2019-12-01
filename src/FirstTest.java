@@ -2,7 +2,8 @@ import java.util.*;
 
 public class FirstTest {
     public static void main(String[] args){
-        FirstDataBoard db = new FirstDataBoard("qfrt22LmOnp#5");
+        FirstDataBoard db = new FirstDataBoard("qfrt22LmOnp#5"); // -> testa prima implementazione
+        //SecondDataBoard db = new SecondDataBoard("qfrt22LmOnp#5");    // -> testa seconda implementazione
 
         //creo dati che mi serviranno
         Data theDarkSideOfTheMoon = new MyData("The Dark Side Of The Moon", "Pink Floyd");

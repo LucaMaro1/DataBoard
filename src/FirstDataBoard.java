@@ -17,6 +17,8 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
 
                 - for all i. 0 <= i < c.categories.size() ==> (c.categories.get(i) != null & c.friendForCategories.get(i) != null);
 
+                - for all i. 0 <= i < c.friendsPutLike.size() & for all j. 0 <= j < c.friendsPutLike.get(i) ==> c.friendsPutLike.get(i).get(j) != null;
+
                 - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> (c.hasFriendPutLike.get(i).get(j) != null);
 
                 - for all i. 0 <= i < c.data.size() & for all j. i < j < c.data.size() ==> (c.data.get(i).equals(c.data.get(j)) == false);
@@ -31,7 +33,7 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
 
                 - for all i. 0 <= i < c.dataCategories.size() ==> c.dataCategories.get(i) ∈ c.categories;
 
-                - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> c.hasFriendPutLike.get(i).get(j) ∈ c.friendsForCategories.
+                - for all i. 0 <= i < c.hasFriendPutLike.size() & for all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> ( ∃ k. 0 <= k < c.friendsForCategories.size() ==> c.hasFriendPutLike.get(i).get(j) ∈ c.friendsForCategories.get(k) ).
      */
 
     //variabili di istanza
