@@ -14,7 +14,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
                 - c.categories.size() = c.friendsForCategories.size() = c.dataForCategories.size() = c.friendLikedData.size();
 
-                - for all i. 0 <= i < c.categories.size() ==> (c.categories.get(i) != null & c.friendsForCategories.get(c.categories.get(c.categories.get(i))) != null & c.dataForCategories.get(c.categories.get(i)) != null & c.friendLikedData.get(c.categories.get(i)));
+                - for all i. 0 <= i < c.categories.size() ==> (c.categories.get(i) != null & c.friendsForCategories.get(c.categories.get(i)) != null & c.dataForCategories.get(c.categories.get(i)) != null & c.friendLikedData.get(c.categories.get(i)));
 
                 - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() ==> c.friendsForCategories.get(c.categories.get(i)).get(j) != null;
 
@@ -22,11 +22,31 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
                 - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsLikedData.get(c.categories.get(i)).size() ==> c.friendsLikedData.get(c.categories.get(i)).get(j) != null;
 
-                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsLikedData.get(c.categories.get(i)).size() & for all k. 0 <= k < c.friendsLikedData.get(categories.get(i)).get(dataForCategories.get(c.categories.get(i)) ==>
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsLikedData.get(c.categories.get(i)).size() & for all k. 0 <= k < c.friendsLikedData.get(categories.get(i)).get(dataForCategories.get(c.categories.get(i)).size() ==>
                   ==> c.friendsLikedData.get(c.category.get(i)).get(c.dataForCategories.get(categories.get(i).get(j)).get(k) != null;
 
-                -
+                - c.numOfData = [Sommatoria su i che va da 0 a (c.dataCategories.size() - 1) di: (c.dataCategories.get(categories.get(i)).size())];
 
+                - for all i. 0 <= i < c.categories.size() & for all j. i < j < c.categories.size() ==> (c.categories.get(i).equals(c.categories.get(j)) == false);
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() & for all k. j < k < c.friendsForCategories.get(c.categories.get(i)).size() ==>
+                  ==> (c.friendsForCategories.get(categories.get(i)).get(j).equals(c.friendsForCategories.get(categories.get(i)).get(k)) == false);
+
+                - for all i1. 0 <= i1 < c.categories.size() & for all i2. 0 <= i2 < c.categories.size() & for all j. 0 <= j < c.dataForCategories.get(c.categories.get(i1)).size() & for all k. j < k < c.dataForCategories.get(c.categories.get(i2)).size() ==>
+                  ==> (c.dataForCategories.get(categories.get(i1)).get(j).equals(c.dataForCategories.get(categories.get(i2)).get(k)) == false);
+
+                - for all i. 0 <= i < c.categories.size() & for all j1. 0 <= j1 < c.friendLikedData.get(categories.get(i)).size() & for all j2. 0 <= j2 < c.friendLikedData.get(categories.get(i)).size() &
+                  & for all k1. 0 <= k1 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).size() & for all k2. 0 <= k2 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).size() ==>
+                  ==> (c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k1).equals(c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k2)) == false);
+
+                - c.friendsForCategories.keySet().equals(c.dataForCategories.keySet()) == true & c.friendsForCategories.keySet().equals(c.friendLikedData.keySet()) == true;
+
+                - for all key in c.friendsForCategories, c.dataForCategories, c.friendLikedData. key ∈ c.categories;
+
+                - for all i. 0 <= i < c.categories.size() & for all key in c.friendLikedData.get(categories.get(i)). key ∈ c.dataForCategories.get(categories.get(i));
+
+                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendLikedData.get(categories.get(i)).size() & for all k. 0 <= k < c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).size() ==>
+                  c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).get(k) ∈ c.friendsForCategories.get(categories.get(i));
      */
 
     //variabili di istanza
