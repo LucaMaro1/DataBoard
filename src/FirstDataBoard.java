@@ -5,9 +5,10 @@ import java.util.*;
 public class FirstDataBoard<E extends Data> implements DataBoard<E> {
 
     /*
-        AF(c) = < c.password, {c.data.get(i) | 0 <= i < c.data.size()}, {c.dataCategories.get(i) | 0 <= i < c.dataCategories.size()}, {c.categories.get(i) | 0 <= i < c.categories.size()},
-                  {c.friendsForCategories.get(i).get(j) | 0 <= i < c.friendsForCategories.size() & 0 <= j < c.friendsForCategories.get(i).size()},
-                  {c.hasFriendPutLike.get(i).get(j) | 0 <= i < c.hasFriendPutLike.size() & 0 <= j < c.hasFriendPutLike.get(i).size()} >
+        AF(c) = < c.password, {c.data.get(i) | 0 <= i < c.data.size()}, {c.categories.get(i) | 0 <= i < c.categories.size()}, {c.friendsForCategories.get(i).get(j) | 0 <= i < c.categories.size() & 0 <= j < c.friendsForCategories.get(i).size()},
+                  for all i. 0 <= i < c.data.size() ==> categoryOfData(c.data.get(i)) = c.dataCategories.get(i),
+                  for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(i).size() ==> friendsOfCategories(c.categories.get(i)) = {c.friendsForCategories.get(i).get(j)},
+                  for all i. 0 <= i < c.data.size() & fot all j. 0 <= j < c.hasFriendPutLike.get(i).size() ==> likes(c.data.get(i)) = {c.hasFriendPutLike.get(i).get(j)} >
 
         IR(c) = - c.password != null & c.data != null & c.dataCategories != null & c.categories != null & c.friendsForCategories != null & c.hasFriendPutLike != null;
 

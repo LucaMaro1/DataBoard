@@ -3,13 +3,18 @@ import java.util.*;
 public interface DataBoard<E extends Data> {
 
     /*
-        Overview: Tipo modificabile che rappresenta una bacheca di dati ai quali vengono associate categorie, alle quali possono
-                  essere associati degli amici. Gli amici possono mettere un like ai dati che hanno associate le categorie
-                  alle quali hanno accesso.
+        Overview: Tipo modificabile che rappresenta una bacheca di dati ai quali vengono associate categorie, alle quali possono essere associati degli amici.
+                  Gli amici possono mettere un like ai dati che hanno associate le categorie alle quali hanno accesso.
 
-        Typical element: <password, {data_i}, {category_i}>  --> da finire
-
-
+        Typical element: <password, {data}, {categories}, {friends}, categoryOfData : d ∈ {data} -> c ∈ {categories}, friendsOfCategories : c ∈ {categories} -> F ⊆ {friends}, likes : d ∈ {data} -> L ⊆ friendsForCategories(categoryForData(d))>
+                        dove:
+                            - password: una stringa che rappresenta la parola d'ordine con la quale si identifica il proprietario della Databoard;
+                            - {data}: insieme dei dati presenti nella Databoard;
+                            - {categories}: insieme delle categorie presenti nella Databoard;
+                            - {friends}: insieme di amici che ha accesso alla Databoard;
+                            - categoryForData: funzione che associa una categoria di {categories} ad ogni dato di {data};
+                            - friendsForCategories: funzione che associa un'insieme di amici (che è sottinsieme di {friends}) ad ogni categoria di {categories}. Corrisponde all'insieme di amici che hanno accesso ad una particolare categoria;
+                            - likes: funzione che associa ad ogni dato di {data} un insieme di amici, il quale è sottinsieme degli amici associati alla categoria del dato. Corrisponde all'insieme di amici che hanno messo like ad un particolare dato.
      */
 
     public void createCategory(String category, String passw) throws WrongPassException;

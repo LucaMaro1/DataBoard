@@ -5,10 +5,12 @@ import java.util.*;
 public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
     /*
-        AF(c) = < c.password, c.numOfData, {c.categories.get(i) | 0 <= i < c.categories.size()}, {<c.categories.get(i), {c.friendsForCategories.get(c.categories.get(i)).get(j) | 0 <= j < c.friendForCategories.get(i).size()}> | 0 <= i < c.friendsForCategories.size()},
-                  {<c.categories.get(i), {c.dataForCategories.get(c.categories.get(i)).get(j) | 0 <= j < c.dataForCategories.get(c.categories.get(i)).size()}> | 0 <= i < c.dataForCategories.size()},
-                  {<c.categories.get(i), {<c.dataForCategories.get(c.categories.get(i)).get(j), {c.friendLikedData.get(c.categories.get(i)).get(c.dataForCategories.get(c.categories.get(i)).get(j)).get(k) |
-                  | 0 <= k < c.friendLikedData.get(c.categories.get(i)).get(c.dataForCategories.get(c.categories.get(i)).size()}> | 0 <= j < c.dataForCategories.get(c.categories.get(i)).size()} | 0 <= i < c.categories.size()}
+        AF(c) = < c.password, {c.categories.get(i) | 0 <= i < c.categories.size()}, {<c.categories.get(i), {c.friendsForCategories.get(c.categories.get(i)).get(j)}> | 0 <= i < c.friendsForCategories.size() & 0 <= j < c.friendForCategories.get(i).size()},
+                  {<c.categories.get(i), {c.dataForCategories.get(c.categories.get(i).get(j)}> | 0 <= i < c.dataForCategories.size() & 0 <= j < c.dataForCategories.get(c.categories.get(i)).size()},
+                  for all 0 <= i < c.dataForCategories.size() & for all 0 <= j < c.dataForCategories.get(c.categories.get(i)).size() ==> categoryOfData(c.dataForCategories.get(categories.get(i)).get(j)) = c.categories.get(i),
+                  for all 0 <= i < c.friendsForCategories.size() & for all 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() ==> friendsOfCategories(c.categories.get(i)) = {c.friendForCategories.get(c.categories.get(i)).get(j)},
+                  for all 0 <= i < c.friendLikedData.size() & for all 0 <= j < c.friendLikedData.get(categories.get(i)).size() & for all 0 <= k < c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).size() ==>
+                  ==> likes(c.dataForCategories.get(categories.get(i)).get(j)) = {c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).get(k)} >
 
         IR(c) = - c.password != null & c.categories != null & c.friendForCategories != null & c.dataForCategories != null & c.friendLikedData != null;
 
@@ -36,17 +38,17 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
                   ==> (c.dataForCategories.get(categories.get(i1)).get(j).equals(c.dataForCategories.get(categories.get(i2)).get(k)) == false);
 
                 - for all i. 0 <= i < c.categories.size() & for all j1. 0 <= j1 < c.friendLikedData.get(categories.get(i)).size() & for all j2. 0 <= j2 < c.friendLikedData.get(categories.get(i)).size() &
-                  & for all k1. 0 <= k1 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).size() & for all k2. 0 <= k2 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).size() ==>
-                  ==> (c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k1).equals(c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k2)) == false);
+                  & for all k1. 0 <= k1 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).size() & for all k2. k1 < k2 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).size() ==>
+                  ==> (c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k1).equals(c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).get(k2)) == false);
 
-                - c.friendsForCategories.keySet().equals(c.dataForCategories.keySet()) == true & c.friendsForCategories.keySet().equals(c.friendLikedData.keySet()) == true;
+                - c.friendsForCategories.keySet().equals(c.dataForCategories.keySet()) == true & c.friendsForCategories.keySet().equals(c.friendLikedData.keySet()) == true & c.friendsForCategories.keySet().equals(c.categories) == true;
 
-                - for all key in c.friendsForCategories, c.dataForCategories, c.friendLikedData. key ∈ c.categories;
+                - for all i. 0 <= i < c.categories.size() ==> c.friendLikedData.get(i).keySet().equals(c.dataForCategories.get(categories.get(i))) == true;
 
                 - for all i. 0 <= i < c.categories.size() & for all key in c.friendLikedData.get(categories.get(i)). key ∈ c.dataForCategories.get(categories.get(i));
 
                 - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendLikedData.get(categories.get(i)).size() & for all k. 0 <= k < c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).size() ==>
-                  c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).get(k) ∈ c.friendsForCategories.get(categories.get(i));
+                  ==> c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).get(k) ∈ c.friendsForCategories.get(categories.get(i)).
      */
 
     //variabili di istanza
