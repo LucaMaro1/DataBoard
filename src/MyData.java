@@ -36,6 +36,7 @@ public class MyData implements Data {
     public String getAuthor(){
         return this.author;
     }
+    //EFFECTS: restituisce l'autore del dato.
 
     @Override
     public String toString() {

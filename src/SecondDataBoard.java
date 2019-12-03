@@ -132,7 +132,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
             for(int i = 0 ; i < friendsForCategories.get(category).size() ; i++){
                 if(friend.equals(friendsForCategories.get(category).get(i))){
                     //si sta tendando di aggiungere un amico già esistente
-                    throw new IllegalArgumentException("Already existent friend:" + friend + ".");
+                    throw new IllegalArgumentException("Already existent friend: " + friend + ".");
                 }
             }
             //amico inesistente nella categoria scelta, posso aggiungerlo
@@ -159,13 +159,12 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
             if(friendsForCategories.get(category).size() == 0)
                 throw new EmptyListException("Impossible to remove friend " + friend + " because there are no friends for this category.");
 
-
-            for(int j = 0 ; j < friendsForCategories.get(category).size() ; j++){
-                if(friend.equals(friendsForCategories.get(category).get(j))){
-                    friendsForCategories.get(category).remove(j);
+            for(int i = 0 ; i < friendsForCategories.get(category).size() ; i++){
+                if(friend.equals(friendsForCategories.get(category).get(i))){
+                    friendsForCategories.get(category).remove(i);
                     //elimino i like che friend aveva messo ai post di category
-                    for(int k = 0 ; k < friendLikedData.get(category).size() ; k++){
-                        friendLikedData.get(category).get(dataForCategories.get(category).get(k)).remove(friend);
+                    for(int j = 0 ; j < friendLikedData.get(category).size() ; j++){
+                        friendLikedData.get(category).get(dataForCategories.get(category).get(j)).remove(friend);
                     }
                     System.out.println("Friend " + friend + " correctly removed.");
                     printFriendList(friendsForCategories.get(category));
@@ -366,7 +365,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
             }
         }
 
-        //ordino i dati (IMPLEMENTARE CON MERGESORT!!!)
+        //ordino i dati
         for(int i = 0 ; i < retData.size(); i++){
             for(int j = 0 ; j < retData.size() - 1 ; j++){
                 //ordina in modo decrescente
@@ -406,6 +405,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         int i = 0;
         int j = 0;
         List<E> retList = new ArrayList<E>();
+        //aggiungo i dati di ogni categoria accessibile a friend alla lista a cui associerò l'iteratore
         while(j < permittedCategories.size()){
             if(categories.get(i).equals(permittedCategories.get(j))){
                 retList.addAll(dataForCategories.get(categories.get(i)));

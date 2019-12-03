@@ -381,7 +381,7 @@ public class FirstDataBoard<E extends Data> implements DataBoard<E> {
             likes.add(hasFriendPutLike.get(i).size());
         }
 
-        //ordino i dati (IMPLEMENTARE CON MERGESORT!!!)
+        //ordino i dati
         for(int i = 0 ; i < retData.size(); i++){
             for(int j = 0 ; j < retData.size() - 1 ; j++){
                 //ordina in modo decrescente

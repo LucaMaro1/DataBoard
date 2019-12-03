@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class FirstTest {
+public class Test {
     public static void main(String[] args){
         FirstDataBoard db = new FirstDataBoard("qfrt22LmOnp#5"); // -> testa la prima implementazione
         //SecondDataBoard db = new SecondDataBoard("qfrt22LmOnp#5");    // -> testa la seconda implementazione
@@ -81,6 +81,7 @@ public class FirstTest {
             db.addFriend("cinema", "qfrt22LmOnp#5", "Giulia");
             db.addFriend("sport", "qfrt22LmOnp#5", "Luca");
             db.addFriend("sport", "qfrt22LmOnp#5", "Davide");
+            db.addFriend("sport", "qfrt22LmOnp#5", "Mirco");
             db.addFriend("musica", "qfrt22LmOnp#5", "Luca");
             db.addFriend("musica", "qfrt22LmOnp#5", "Giovanni");
             db.addFriend("cinema", "qfrt22LmOnp#5", "Giorgia");
@@ -104,7 +105,6 @@ public class FirstTest {
             //provo ad inserire un dato già esistente
             db.put("qfrt22LmOnp#5", orwell1984, "sport");
 
-
             //inserisco i like
             db.insertLike("Luca", theDarkSideOfTheMoon);
             db.insertLike("Giovanni", backInBlack);
@@ -122,6 +122,11 @@ public class FirstTest {
             db.insertLike("Giulia", narnia);
             //provo ad inserire per la seconda volta un like con lo stesso amico allo stesso dato
             db.insertLike("Luca", theDarkSideOfTheMoon);
+
+            //rimuovo un dato
+            db.remove("qfrt22LmOnp#5", backInBlack);
+            //rimuovo un amico da una categoria e tutti i like che ha messo
+            db.removeFriend("informatica", "qfrt22LmOnp#5", "Mirco");
 
             //mi faccio restituire dei dati e li stampo
             db.get("qfrt22LmOnp#5", theDarkSideOfTheMoon).display();
@@ -148,10 +153,9 @@ public class FirstTest {
                 Rush                        -> 2 likes
                 Narnia                      -> 2 likes
                 The Dark Side of The Moon   -> 1 like
-                Back In Black               -> 1 like
                 Cormen                      -> 1 like
-                Djikstra                    -> 1 like
                 Endgame                     -> 1 like
+                Djikstra                    -> 0 likes
                 War and Peace               -> 0 likes
                 Starlight                   -> 0 likes
                 Facebook                    -> 0 likes
@@ -225,7 +229,7 @@ public class FirstTest {
         }
         //provo ad aggiungere lo stesso amico ad una categoria per la seconda volta
         try{
-            db.addFriend("informatica", "qfrt22LmOnp#5", "Mirco");
+            db.addFriend("informatica", "qfrt22LmOnp#5", "Maria");
         }
         catch(Exception e){
             System.out.println(e.getMessage() + "\n");
