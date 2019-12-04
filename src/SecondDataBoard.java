@@ -29,25 +29,33 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
                 - c.numOfData = [Sommatoria su i che va da 0 a (c.dataCategories.size() - 1) di: (c.dataCategories.get(categories.get(i)).size())];
 
-                - for all i. 0 <= i < c.categories.size() & for all j. i < j < c.categories.size() ==> (c.categories.get(i).equals(c.categories.get(j)) == false);
+                - LE CATEGORIE SONO TUTTE DIVERSE FRA LORO:
+                  for all i. 0 <= i < c.categories.size() & for all j. i < j < c.categories.size() ==> (c.categories.get(i).equals(c.categories.get(j)) == false);
 
-                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() & for all k. j < k < c.friendsForCategories.get(c.categories.get(i)).size() ==>
+                - GLI AMICI CHE POSSONO ACCEDERE AI DATI DI OGNI CATEGORIA SONO TUTTI DIVERSI FRA LORO:
+                  for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendsForCategories.get(c.categories.get(i)).size() & for all k. j < k < c.friendsForCategories.get(c.categories.get(i)).size() ==>
                   ==> (c.friendsForCategories.get(categories.get(i)).get(j).equals(c.friendsForCategories.get(categories.get(i)).get(k)) == false);
 
-                - for all i1. 0 <= i1 < c.categories.size() & for all i2. 0 <= i2 < c.categories.size() & for all j. 0 <= j < c.dataForCategories.get(c.categories.get(i1)).size() & for all k. j < k < c.dataForCategories.get(c.categories.get(i2)).size() ==>
+                - I DATI SONO TUTTI DIVERSI FRA LORO:
+                  for all i1. 0 <= i1 < c.categories.size() & for all i2. 0 <= i2 < c.categories.size() & for all j. 0 <= j < c.dataForCategories.get(c.categories.get(i1)).size() & for all k. j < k < c.dataForCategories.get(c.categories.get(i2)).size() ==>
                   ==> (c.dataForCategories.get(categories.get(i1)).get(j).equals(c.dataForCategories.get(categories.get(i2)).get(k)) == false);
 
-                - for all i. 0 <= i < c.categories.size() & for all j1. 0 <= j1 < c.friendLikedData.get(categories.get(i)).size() & for all j2. 0 <= j2 < c.friendLikedData.get(categories.get(i)).size() &
+                - GLI AMICI CHE HANNO MESSO LIKE AD UN DATO SONO TUTTI DIVERSI FRA LORO ED IL LIKE È UNICO:
+                  for all i. 0 <= i < c.categories.size() & for all j1. 0 <= j1 < c.friendLikedData.get(categories.get(i)).size() & for all j2. 0 <= j2 < c.friendLikedData.get(categories.get(i)).size() &
                   & for all k1. 0 <= k1 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).size() & for all k2. k1 < k2 < c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).size() ==>
                   ==> (c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j1)).get(k1).equals(c.friendLikedData.get(categories.get(i)).get(dataForCategories.get(categories.get(i)).get(j2)).get(k2)) == false);
 
-                - c.friendsForCategories.keySet().equals(c.dataForCategories.keySet()) == true & c.friendsForCategories.keySet().equals(c.friendLikedData.keySet()) == true & c.friendsForCategories.keySet().equals(c.categories) == true;
+                - LE CHIAVI DELLE HASHMAP friendsForCategories, dataForCategories E friendLikedData SONO UGUALI FRA LORO E CORRISPONDONO AI VALORI DELLA LISTA DELLE CATEGORIE:
+                  c.friendsForCategories.keySet().equals(c.dataForCategories.keySet()) == true & c.friendsForCategories.keySet().equals(c.friendLikedData.keySet()) == true & c.friendsForCategories.keySet() = {c.categories}
 
-                - for all i. 0 <= i < c.categories.size() ==> c.friendLikedData.get(i).keySet().equals(c.dataForCategories.get(categories.get(i))) == true;
+                - LE CHIAVI DELLE HASHMAP friendLikedData.get(i) SONO UGUALI AI VALORI DELLA LISTA DEI DATI:
+                  for all i. 0 <= i < c.categories.size() ==> c.friendLikedData.get(i).keySet() = {c.dataForCategories.get(categories.get(i))};
 
-                - for all i. 0 <= i < c.categories.size() & for all key in c.friendLikedData.get(categories.get(i)). key ∈ c.dataForCategories.get(categories.get(i));
+                - LA CATEGORIA ASSOCIATA AD OGNI DATO È CONTENUTA NELL'INSIEME DELLE CATEGORIE:
+                  for all i. 0 <= i < c.categories.size() & for all key in c.friendLikedData.get(categories.get(i)). key ∈ c.dataForCategories.get(categories.get(i));
 
-                - for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendLikedData.get(categories.get(i)).size() & for all k. 0 <= k < c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).size() ==>
+                - L'INSIEME DEGLI AMICI CHE HA MESSO LIKE AD UN DATO È SOTTINSIEME DEGLI AMICI CHE HANNO ACCESSO ALLA CATEGORIA DEL DATO:
+                  for all i. 0 <= i < c.categories.size() & for all j. 0 <= j < c.friendLikedData.get(categories.get(i)).size() & for all k. 0 <= k < c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).size() ==>
                   ==> c.friendLikedData.get(categories.get(i)).get(c.dataForCategories.get(categories.get(i)).get(j)).get(k) ∈ c.friendsForCategories.get(categories.get(i)).
      */
 
@@ -424,14 +432,27 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         if(!p.equals(truePass))
             throw new WrongPassException("Wrong Password.");
     }
+    /*
+        REQUIRES: -p != null;
+                  -truePass != null;
+        EFFECTS: Solleva WrongPassException se p e truePass non hanno lo stesso valore.
+     */
 
     private static void printFriendList(List<String> list){
         System.out.println(list.toString() + "\n");
     }
+    /*
+        REQUIRES: -list != null;
+        EFFECTS: Stampa l'insieme di stringhe passato come parametro.
+     */
 
     private static void printCategoriesList(List<String> list){
         System.out.println(list.toString() + "\n");
     }
+    /*
+        REQUIRES: -list != null;
+        EFFECTS: Stampa l'insieme di stringhe passato come parametro.
+     */
 
     private static void printDataList (List<Data> list){
         System.out.print('[');
@@ -440,8 +461,12 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
         }
         System.out.println(list.get(list.size() - 1).getTitle() + "]\n");
     }
+    /*
+        REQUIRES: -list != null;
+        EFFECTS: Stampa l'insieme di dati passato come parametro identificandoli con il loro titolo.
+     */
 
-    private static class MyIterator<E extends Data> implements Iterator {
+    private static class MyIterator<E extends Data> implements Iterator<E> {
         //un classico iteratore ma che non supporta il metodo remove
 
         Iterator<E> it;
@@ -457,7 +482,7 @@ public class SecondDataBoard<E extends Data> implements DataBoard<E> {
 
 
         @Override
-        public Object next() {
+        public E next() {
             return this.it.next();
         }
     }

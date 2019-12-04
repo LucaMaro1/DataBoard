@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Test {
     public static void main(String[] args){
-        FirstDataBoard db = new FirstDataBoard("qfrt22LmOnp#5"); // -> testa la prima implementazione
-        //SecondDataBoard db = new SecondDataBoard("qfrt22LmOnp#5");    // -> testa la seconda implementazione
+        FirstDataBoard<Data> db = new FirstDataBoard<Data>("qfrt22LmOnp#5"); // -> testa la prima implementazione
+        //SecondDataBoard<Data> db = new SecondDataBoard<Data>("qfrt22LmOnp#5");    // -> testa la seconda implementazione
 
         //creo dati che mi serviranno
         Data theDarkSideOfTheMoon = new MyData("The Dark Side Of The Moon", "Pink Floyd");
@@ -146,7 +146,7 @@ public class Test {
             }
 
             //test degli iteratori
-            Iterator it1 = db.getIterator("qfrt22LmOnp#5");
+            Iterator<Data> it1 = db.getIterator("qfrt22LmOnp#5");
             /*
                 1984                        -> 3 likes
                 Schism                      -> 2 likes
@@ -164,7 +164,7 @@ public class Test {
                 System.out.println(it1.next().toString());
             }
 
-            Iterator it2 = db.getFriendIterator("Luca");
+            Iterator<Data> it2 = db.getFriendIterator("Luca");
             //informatica, musica e sport
             while(it2.hasNext()){
                 System.out.println(it2.next().toString());
