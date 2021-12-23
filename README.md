@@ -1,5 +1,5 @@
 # DataBoard
-Programmazione II project, University of Pisa, A.A. 2018-201
+Programmazione II project, University of Pisa, A.A. 2018-2019
 
 Il progetto ha l’obiettivo di applicare i concetti e le tecniche di programmazione Object-Oriented esaminate durante il corso.
 Lo scopo del progetto è lo sviluppo di un componente software di supporto alla gestione di insiemi di dati.
